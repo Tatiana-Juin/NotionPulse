@@ -1,0 +1,10 @@
+# Environnement virtuel
+venv/
+.venv/
+
+# Secrets Notion
+.env
+
+# Fichiers Python temporaires
+__pycache__/
+*.py[cod]

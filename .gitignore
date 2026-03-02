@@ -8,3 +8,7 @@ venv/
 # Fichiers Python temporaires
 __pycache__/
 *.py[cod]
+api/__pycache__/
+views/__pycache__/
+test_config.py
+test_api_notion.py

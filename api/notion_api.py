@@ -56,10 +56,10 @@ class NotionAPI:
             "properties":{
                 "Nom":{
                     "title":[{"text": {"content": question}}]
-                },
-                "Description":{
-                    "rich_text":[{"text": {"content":"depuis mon application"}}]
                 }
+                # "Description":{
+                #     "rich_text":[{"text": {"content":"depuis mon application"}}]
+                # }
             }
         }
         try:

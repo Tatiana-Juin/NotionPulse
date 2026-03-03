@@ -1,4 +1,5 @@
 import customtkinter
+# on met. => pour dire que le fichier est dans le meme dossier 
 from  .btn_form import BtnForm
 
 class Form(customtkinter.CTkFrame):

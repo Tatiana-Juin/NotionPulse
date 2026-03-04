@@ -4,7 +4,7 @@ class Main(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.title("Application Notion")
-        self.geometry("1000x600")
+        self.geometry("1200x600")
         self.configure(fg_color="#F9F9F9")
 
         # La 0 et la 2 vont "pousser" pour que la 1 reste bien au centre
@@ -22,6 +22,8 @@ class Main(customtkinter.CTk):
         # Appelle du formulaire 
         self.saisie_frame = Form(self)
         self.saisie_frame.grid(row=2,column=0, padx=3,pady=3)
+
+        
         
 
 main = Main()

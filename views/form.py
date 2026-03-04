@@ -7,7 +7,7 @@ class Form(customtkinter.CTkFrame):
     def __init__(self,master):
         super().__init__(master,fg_color="#F9F9F9")
         # Pour saisir du texte 
-        self.question = customtkinter.CTkEntry(self,placeholder_text="Test a saisir");
+        self.question = customtkinter.CTkEntry(self,placeholder_text="Test a saisir",width=250);
         self.question.grid(row=2,column=1, padx=3,pady=3)
         # Pour le bouton
         self.btn_frame = BtnForm(self,command=self.valider_formulaire)

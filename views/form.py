@@ -15,7 +15,8 @@ class Form(customtkinter.CTkFrame):
 
         self.message_label = customtkinter.CTkLabel(self, text="")
         self.message_label.grid(row=3, column=1, columnspan=2, pady=10)
-
+    
+    # fonction pour la validation 
     def valider_formulaire(self):
         question = self.question.get()
 

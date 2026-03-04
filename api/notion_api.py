@@ -4,8 +4,10 @@ import json
 from .config_api import Config
 
 class NotionAPI:
+    # appelle de api 
     BASE_URL = "https://api.notion.com/v1"
-    
+
+    # headers => OBLIGATION POUR API NOTION 
     headers = {
         "Authorization": f"Bearer {Config.TOKEN}",
         "Content-Type": "application/json",
@@ -15,6 +17,7 @@ class NotionAPI:
     # VERIFICATION 
     @classmethod
     def verification(cls,question):
+        # enlever les espace 
         question = question.strip()
         # Pour etre sur que l'on a inserer une question 
         if not question: 
@@ -23,7 +26,7 @@ class NotionAPI:
         # rechercher si une question existe deja dans la DB 
         url = f"{cls.BASE_URL}/databases/{Config.DB_QUESTIONS}/query"
 
-        # On filtre les question de la db
+        # On filtre les question de la db equals => egale 
         payload = {
             "filter": {
                 "property":"Nom",
@@ -36,6 +39,7 @@ class NotionAPI:
         response = requests.post(url,headers=cls.headers,json=payload)
         # si la reponse retourne 200 aucune erreur avec api 
         if response.status_code==200:
+            # convertie en json
             donnees = response.json()
             # verification de la taille du tableau 
             if len(donnees["results"]) > 0:

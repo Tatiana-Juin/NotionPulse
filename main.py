@@ -1,5 +1,6 @@
 import customtkinter;
 from views.form import Form
+from views.btn import Btn
 class Main(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -16,15 +17,16 @@ class Main(customtkinter.CTk):
         self.titre_page.grid(row=0,column=0,columnspan=3,pady=20)
 
         # Titre du formulaire  
-        self.titre = customtkinter.CTkLabel(self, text=" Question récurente")
+        self.titre = customtkinter.CTkLabel(self, text=" Question récurente",font=("Helvetica",15))
         self.titre.grid(row=1,column=0,pady=3,padx=3)
 
         # Appelle du formulaire 
         self.saisie_frame = Form(self)
         self.saisie_frame.grid(row=2,column=0, padx=3,pady=3)
 
-        
-        
+        # Pour voir les 10 premiere question on devra cliquer sur un button 
+        self.btn = Btn(self,text="Voir les idées de publication")
+        self.btn.grid(row=3,column=0,padx=3,pady=3)
 
 main = Main()
 main.mainloop()

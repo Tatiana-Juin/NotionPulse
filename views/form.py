@@ -1,6 +1,6 @@
 import customtkinter
 # on met. => pour dire que le fichier est dans le meme dossier 
-from  .btn_form import BtnForm
+from  .btn import Btn
 from api.notion_api import NotionAPI
 
 class Form(customtkinter.CTkFrame):
@@ -10,7 +10,7 @@ class Form(customtkinter.CTkFrame):
         self.question = customtkinter.CTkEntry(self,placeholder_text="Test a saisir",width=250);
         self.question.grid(row=2,column=1, padx=3,pady=3)
         # Pour le bouton
-        self.btn_frame = BtnForm(self,command=self.valider_formulaire)
+        self.btn_frame = Btn(self,command=self.valider_formulaire,text="valider")
         self.btn_frame.grid(row=2,column=2,pady=3,padx=3)
 
         self.message_label = customtkinter.CTkLabel(self, text="")

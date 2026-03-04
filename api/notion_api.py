@@ -1,4 +1,4 @@
-import customtkinter
+# import customtkinter
 import requests
 import json
 from .config_api import Config

@@ -1,6 +1,7 @@
 import customtkinter;
 from views.form import Form
 from views.btn import Btn
+from views.liste import Liste
 class Main(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -24,9 +25,15 @@ class Main(customtkinter.CTk):
         self.saisie_frame = Form(self)
         self.saisie_frame.grid(row=2,column=0, padx=3,pady=3)
 
+        # pour afficher les question
+        self.afficher_question = Liste(self)
+        self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
+
         # Pour voir les 10 premiere question on devra cliquer sur un button 
-        self.btn = Btn(self,text="Voir les idées de publication")
+        self.btn = Btn(self,text="Voir les idées de publication",command=self.afficher_question.actualiser)
         self.btn.grid(row=3,column=0,padx=3,pady=3)
+
+        
 
 main = Main()
 main.mainloop()

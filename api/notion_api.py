@@ -52,6 +52,8 @@ class NotionAPI:
     # AJOUT DE LA QUESTION 
     @classmethod
     def ajout_question(cls,question):
+
+
         # POUR CREER UNE NOUVELLE LIGNE, POUR L'INSERTION 
         url = f"{cls.BASE_URL}/pages"
 
@@ -75,3 +77,22 @@ class NotionAPI:
                 return f"erreur lors de l'ajout {response.status_code}"
         except Exception as e:
             return f"erreur de connection {e}"
+
+    @classmethod
+    def voir_question(cls):
+        url = f"{cls.BASE_URL}/databases/{Config.DB_QUESTIONS}/query"
+        response = requests.post(url,headers=cls.headers,json={})
+        # si cela fonctionne 
+        if response.status_code==200:
+             donnees = response.json()
+             pages = donnees.get("results",[])
+            # tableau pour ajouter les nom des idée d'articles
+             noms=[]
+            
+            # Pour voir que les 20 premier 
+             for page in pages[:20]:
+                 nom = page["properties"]["Nom"]["title"][0]["text"]["content"]
+                 noms.append(nom)
+             return noms;
+        return []
+            

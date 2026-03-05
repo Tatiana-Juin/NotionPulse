@@ -4,7 +4,9 @@ from views.btn import Btn
 from views.liste import Liste
 class Main(customtkinter.CTk):
     def __init__(self):
+    
         super().__init__()
+        self.est_afficher = False;
         self.title("Application Notion")
         self.geometry("1200x600")
         self.configure(fg_color="#F9F9F9")
@@ -27,14 +29,27 @@ class Main(customtkinter.CTk):
 
         # pour afficher les question
         self.afficher_question = Liste(self)
-        self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
+        self.liste_visible = False;
+        # self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
 
         # Pour voir les 10 premiere question on devra cliquer sur un button 
-        self.btn = Btn(self,text="Voir les idées de publication",command=self.afficher_question.actualiser)
+        self.btn = Btn(self,text="voir les question",command=self.toggle)
         self.btn.grid(row=3,column=0,padx=3,pady=3)
 
-        
+    def toggle(self):
+        self.est_afficher = not self.est_afficher;
 
-main = Main()
-main.mainloop()
+        if self.est_afficher == True:
+            self.btn.configure(text="masquer les question")
+            self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
+            self.afficher_question.actualiser()
+        else:
+            print("Action : Je cache la liste")
+            self.afficher_question.grid_forget()
+            # self.btn.configure(text="")
+            self.btn.configure(text="voir les questions")
+
+
+s = Main()
+s.mainloop()
 

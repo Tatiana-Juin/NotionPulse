@@ -11,8 +11,11 @@ class Liste(customtkinter.CTkScrollableFrame):
         # La on va nettoyer enlever les ancien label 
         # winfo_children() => verifier tout les widget qui sont present 
         for child in self.winfo_children():
-            # pour supprimer les widget donc les ancien label 
-            child.destroy()
+            if isinstance(child, customtkinter.CTkLabel):
+                # pour detruire  les widget donc les ancien label 
+                child.destroy()
+            
+            # child.destroy()
         
         questions = NotionAPI.voir_question()
 

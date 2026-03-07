@@ -33,14 +33,14 @@ class Main(customtkinter.CTk):
         # self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
 
         # Pour voir les 10 premiere question on devra cliquer sur un button 
-        self.btn = Btn(self,text="voir les question",command=self.toggle)
+        self.btn = Btn(self,text="voir les questions",command=self.toggle)
         self.btn.grid(row=3,column=0,padx=3,pady=3)
 
     def toggle(self):
         self.est_afficher = not self.est_afficher;
 
         if self.est_afficher == True:
-            self.btn.configure(text="masquer les question")
+            self.btn.configure(text="masquer les questions")
             self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
             self.afficher_question.actualiser()
         else:

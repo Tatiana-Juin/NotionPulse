@@ -2,7 +2,7 @@ import customtkinter
 from api.notion_api import NotionAPI
 class Liste(customtkinter.CTkScrollableFrame):
     def __init__(self,master,**kwargs):
-        super().__init__(master,**kwargs)
+        super().__init__(master,width=400,**kwargs)
         self.grid_columnconfigure(0,weight=1)
 
         self.actualiser()

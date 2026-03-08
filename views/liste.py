@@ -45,9 +45,7 @@ class Liste(customtkinter.CTkScrollableFrame):
         questions = resultat["questions"]
         self.curseur_actuel = resultat['next_cursor']
         self.a_une_suite = resultat["has_more"]
-        print(f"DEBUG: Contenu de resultat -> {resultat}")
-        questions = resultat.get("questions", [])
-        print(f"DEBUG: Nombre de questions reçues -> {len(questions)}")
+        
         
 
         # calcule de la ligne de depart pour les nouveaux labels 

@@ -11,7 +11,7 @@ class Liste(customtkinter.CTkScrollableFrame):
         self.a_une_suite = False;
         
         self.grid_columnconfigure(0,weight=1)
-        self.btn_suivant = Btn(self,text="chatger plus", command = self.charger_questions)
+        self.btn_suivant = Btn(self,text="charger  plus", command = self.charger_questions)
         # self.actualiser()
     
     def actualiser(self):

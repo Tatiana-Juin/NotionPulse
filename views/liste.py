@@ -30,13 +30,6 @@ class Liste(customtkinter.CTkScrollableFrame):
             
         # Maintenant on charge les données toutes fraîches
         self.charger_questions()
-        
-        # questions = NotionAPI.voir_question()
-
-        # On créer un label pour chaque question 
-        # for i , texte in enumerate(questions):
-        #     label = customtkinter.CTkLabel(self, text=f"• {texte}", anchor="w")
-        #     label.grid(row=i, column=0, sticky="w", pady=5, padx=10)
 
     
     def charger_questions(self):

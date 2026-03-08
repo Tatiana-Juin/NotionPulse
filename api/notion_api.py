@@ -14,6 +14,8 @@ class NotionAPI:
         "Notion-Version": "2022-06-28"
     }
 
+    
+
     # VERIFICATION 
     @classmethod
     def verification(cls,question):
@@ -79,9 +81,21 @@ class NotionAPI:
             return f"erreur de connection {e}"
 
     @classmethod
-    def voir_question(cls):
+    def voir_question(cls,cursor=None):
         url = f"{cls.BASE_URL}/databases/{Config.DB_QUESTIONS}/query"
-        response = requests.post(url,headers=cls.headers,json={})
+
+        # prepare les instructions pour notion 
+        payload = {
+            # limite le resultat sur 10 paquet
+            "page_size": 10
+        }
+
+        # si on a un cursor on dit a Notion de commencer par la 
+        if cursor:
+            payload["start_cursor"] = cursor
+
+        # response = requests.post(url,headers=cls.headers,json={})
+        response = requests.post(url,json=payload,headers=cls.headers)
         # si cela fonctionne 
         if response.status_code==200:
              donnees = response.json()
@@ -90,9 +104,18 @@ class NotionAPI:
              noms=[]
             
             # Pour voir que les 20 premier 
-             for page in pages[:20]:
+             for page in pages[:10]:
                  nom = page["properties"]["Nom"]["title"][0]["text"]["content"]
                  noms.append(nom)
-             return noms;
-        return []
+
+             return {
+                 "questions":noms,
+                 "next_cursor": donnees.get("next_cursor"),
+                 "has_more":donnees.get("has_more",False)
+             }
+        return {
+            "question":[],
+            "next_cursor" : None,
+            "has_more": False
+        }
             

@@ -4,9 +4,10 @@ from views.btn import Btn
 from views.liste import Liste
 class Main(customtkinter.CTk):
     def __init__(self):
-    
         super().__init__()
+
         self.est_afficher = False;
+
         self.title("Application Notion")
         self.geometry("1200x600")
         self.configure(fg_color="#F9F9F9")

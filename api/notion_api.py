@@ -87,7 +87,7 @@ class NotionAPI:
         # prepare les instructions pour notion 
         payload = {
             # limite le resultat sur 10 paquet
-            "page_size": 10
+            "page_size": 5
         }
 
         # si on a un cursor on dit a Notion de commencer par la 
@@ -104,7 +104,7 @@ class NotionAPI:
              noms=[]
             
             # Pour voir que les 20 premier 
-             for page in pages[:10]:
+             for page in pages[:5]:
                  nom = page["properties"]["Nom"]["title"][0]["text"]["content"]
                  noms.append(nom)
 

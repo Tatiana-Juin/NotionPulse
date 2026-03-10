@@ -2,8 +2,11 @@ import customtkinter
 from .btn import Btn
 from api.notion_api import NotionAPI
 class Liste(customtkinter.CTkScrollableFrame):
-    def __init__(self,master,**kwargs):
+    def __init__(self,master,database_id,texte,**kwargs):
         super().__init__(master,width=400,**kwargs)
+
+        self.database_id = database_id
+        self.texte = texte
         
         # marque page pour notion pour la pagination
         self.curseur_actuel = None
@@ -33,7 +36,7 @@ class Liste(customtkinter.CTkScrollableFrame):
 
     
     def charger_questions(self):
-        resultat = NotionAPI.voir_question(self.curseur_actuel)
+        resultat = NotionAPI.voir_question(self.database_id,self.texte,self.curseur_actuel)
         
         questions = resultat["questions"]
         self.curseur_actuel = resultat['next_cursor']

@@ -2,6 +2,7 @@ import customtkinter;
 from views.form import Form
 from views.btn import Btn
 from views.liste import Liste
+from api.config_api import Config
 class Main(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -15,21 +16,25 @@ class Main(customtkinter.CTk):
         # La 0 et la 2 vont "pousser" pour que la 1 reste bien au centre
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
-        self.grid_columnconfigure(2, weight=1)
+        # self.grid_columnconfigure(2, weight=1)
 
         self.titre_page = customtkinter.CTkLabel(self,text="Application pour les lives",font=("Helvetica",24,"bold"))
-        self.titre_page.grid(row=0,column=0,columnspan=3,pady=20)
+        self.titre_page.grid(row=0,column=0,columnspan=2,pady=20)
 
-        # Titre du formulaire  
-        self.titre = customtkinter.CTkLabel(self, text=" Question récurente",font=("Helvetica",15))
-        self.titre.grid(row=1,column=0,pady=3,padx=3)
+        # Titre pour la section question   
+        self.titre_question = customtkinter.CTkLabel(self, text="❓ Question récurente",font=("Helvetica",15))
+        self.titre_question.grid(row=1,column=0,pady=(10,0))
+
+        # Titre pour les recherches 
+        self.titre_recherches = customtkinter.CTkLabel(self, text="🔍 Recherches à faire", font=("Helvetica", 15, "bold"))
+        self.titre_recherches.grid(row=1, column=1, pady=(10, 0))
 
         # Appelle du formulaire 
         self.saisie_frame = Form(self)
-        self.saisie_frame.grid(row=2,column=0, padx=3,pady=3)
+        self.saisie_frame.grid(row=2,column=0,columnspan=2, padx=3,pady=3)
 
         # pour afficher les question
-        self.afficher_question = Liste(self)
+        self.afficher_question = Liste(self, Config.DB_QUESTIONS, "Nom")
         self.liste_visible = False;
         # self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
 

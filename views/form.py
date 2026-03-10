@@ -9,20 +9,20 @@ class Form(customtkinter.CTkFrame):
         super().__init__(master,fg_color="#F9F9F9")
         # Pour saisir du texte 
         self.question = customtkinter.CTkEntry(self,placeholder_text="Test a saisir",width=250);
-        self.question.grid(row=2,column=1, padx=3,pady=3)
+        self.question.grid(row=2,column=0, padx=5,pady=5)
         # Pour le bouton
         self.btn_question = Btn(self, command=lambda: self.valider_formulaire("question"),text="valider")
-        self.btn_question.grid(row=2,column=2,pady=3,padx=3)
+        self.btn_question.grid(row=2,column=1,pady=5,padx=5)
 
         # pour la recherche 
         self.recherche = customtkinter.CTkEntry(self,placeholder_text="recherche a faire",width=250);
-        self.recherche.grid(row=2,column=3, padx=3,pady=3)
+        self.recherche.grid(row=2,column=2, padx=5,pady=5)
         # Pour le bouton
         self.btn_recherche = Btn(self,command=lambda: self.valider_formulaire("recherche"),text="rechercher")
-        self.btn_recherche.grid(row=2,column=4,pady=3,padx=3)
+        self.btn_recherche.grid(row=2,column=3,pady=5,padx=5)
 
         self.message_label = customtkinter.CTkLabel(self, text="")
-        self.message_label.grid(row=3, column=1, columnspan=2, pady=10)
+        self.message_label.grid(row=3, column=0, columnspan=4, pady=10)
     
     # fonction pour la validation 
     def valider_formulaire(self,type_donnee):

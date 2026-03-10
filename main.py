@@ -49,6 +49,7 @@ class Main(customtkinter.CTk):
             self.afficher_question.grid_forget()
             # self.btn.configure(text="")
             self.btn.configure(text="voir les questions")
+    
 
 
 s = Main()

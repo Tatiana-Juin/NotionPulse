@@ -18,7 +18,7 @@ class NotionAPI:
 
     # VERIFICATION 
     @classmethod
-    def verification(cls,question):
+    def verification(cls,question,database_id,nom_propriete ="Nom"):
         # enlever les espace 
         question = question.strip()
         # Pour etre sur que l'on a inserer une question 
@@ -26,12 +26,12 @@ class NotionAPI:
             return False, "erreur tu dois poser une question"
         
         # rechercher si une question existe deja dans la DB 
-        url = f"{cls.BASE_URL}/databases/{Config.DB_QUESTIONS}/query"
+        url = f"{cls.BASE_URL}/databases/{database_id}/query"
 
         # On filtre les question de la db equals => egale 
         payload = {
             "filter": {
-                "property":"Nom",
+                "property":nom_propriete,
                 "title": {
                     "equals": question
                 }
@@ -53,17 +53,17 @@ class NotionAPI:
     
     # AJOUT DE LA QUESTION 
     @classmethod
-    def ajout_question(cls,question):
+    def ajout(cls,texte,database_id):
 
 
         # POUR CREER UNE NOUVELLE LIGNE, POUR L'INSERTION 
         url = f"{cls.BASE_URL}/pages"
 
         payload = {
-            "parent" : {"database_id": Config.DB_QUESTIONS},
+            "parent" : {"database_id": database_id},
             "properties":{
                 "Nom":{
-                    "title":[{"text": {"content": question}}]
+                    "title":[{"text": {"content": texte}}]
                 }
                 # "Description":{
                 #     "rich_text":[{"text": {"content":"depuis mon application"}}]
@@ -81,8 +81,8 @@ class NotionAPI:
             return f"erreur de connection {e}"
 
     @classmethod
-    def voir_question(cls,cursor=None):
-        url = f"{cls.BASE_URL}/databases/{Config.DB_QUESTIONS}/query"
+    def voir_question(cls,database_id,texte,cursor=None):
+        url = f"{cls.BASE_URL}/databases/{database_id}/query"
 
         # prepare les instructions pour notion 
         payload = {
@@ -105,7 +105,7 @@ class NotionAPI:
             
             # Pour voir que les 20 premier 
              for page in pages[:5]:
-                 nom = page["properties"]["Nom"]["title"][0]["text"]["content"]
+                 nom = page["properties"][texte]["title"][0]["text"]["content"]
                  noms.append(nom)
 
              return {

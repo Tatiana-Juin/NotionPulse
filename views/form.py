@@ -2,6 +2,7 @@ import customtkinter
 # on met. => pour dire que le fichier est dans le meme dossier 
 from  .btn import Btn
 from api.notion_api import NotionAPI
+from api.config_api import Config
 
 class Form(customtkinter.CTkFrame):
     def __init__(self,master):
@@ -10,29 +11,47 @@ class Form(customtkinter.CTkFrame):
         self.question = customtkinter.CTkEntry(self,placeholder_text="Test a saisir",width=250);
         self.question.grid(row=2,column=1, padx=3,pady=3)
         # Pour le bouton
-        self.btn_frame = Btn(self,command=self.valider_formulaire,text="valider")
-        self.btn_frame.grid(row=2,column=2,pady=3,padx=3)
+        self.btn_question = Btn(self, command=lambda: self.valider_formulaire("question"),text="valider")
+        self.btn_question.grid(row=2,column=2,pady=3,padx=3)
+
+        # pour la recherche 
+        self.recherche = customtkinter.CTkEntry(self,placeholder_text="recherche a faire",width=250);
+        self.recherche.grid(row=2,column=3, padx=3,pady=3)
+        # Pour le bouton
+        self.btn_recherche = Btn(self,command=lambda: self.valider_formulaire("recherche"),text="rechercher")
+        self.btn_recherche.grid(row=2,column=4,pady=3,padx=3)
 
         self.message_label = customtkinter.CTkLabel(self, text="")
         self.message_label.grid(row=3, column=1, columnspan=2, pady=10)
     
     # fonction pour la validation 
-    def valider_formulaire(self):
-        question = self.question.get()
-
-        # APPELLE DE NOTRE CLASSE API 
-        succes, message = NotionAPI.verification(question)
-
-        # MISE A JOURS DE L'INTERFACE 
-        self.message_label.configure(text=message)
-        if succes:
-            self.message_label.configure(text_color="green")
-            NotionAPI.ajout_question(question)
-            
-            # Efface le texte de l'index 0 à la fin
-            self.question.delete(0, "end")
+    def valider_formulaire(self,type_donnee):
+        # question = self.question.get()
+        if type_donnee == "question":
+            texte = self.question.get()
+            db_id = Config.DB_QUESTIONS
+            methode_ajout = NotionAPI.ajout
         else:
-            self.message_label.configure(text_color="red")
+            texte=self.recherche.get()
+            db_id = Config.DB_RECHERCHES
+            methode_ajout = NotionAPI.ajout
+
+        # verification avec id dynamique 
+        succes, message = NotionAPI.verification(texte, db_id)
+        
+        if succes:
+            # ajout_question()
+            NotionAPI.ajout(texte, db_id)
+            self.message_label.configure(text=f"✅ {type_donnee} ajouté", text_color="green")
+
+            if type_donnee =="question":
+                self.question.delete(0, "end")
+            else:
+                self.recherche.delete(0, "end")
+        else:
+            self.message_label.configure(text=f"❌ {message}", text_color="red")
+
+        
         
 
 

@@ -8,6 +8,7 @@ class Main(customtkinter.CTk):
         super().__init__()
 
         self.est_afficher = False;
+        self.est_afficher_recherche = False;
 
         self.title("Application Notion")
         self.geometry("1200x600")
@@ -35,25 +36,53 @@ class Main(customtkinter.CTk):
 
         # pour afficher les question
         self.afficher_question = Liste(self, Config.DB_QUESTIONS, "Nom")
+        self.afficher_recherche = Liste(self,Config.DB_RECHERCHES,"Nom")
         self.liste_visible = False;
+        # self.afficher_recherche = Liste(self,Config.DB_RECHERCHES,"Nom")
         # self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
 
         # Pour voir les 10 premiere question on devra cliquer sur un button 
-        self.btn = Btn(self,text="voir les questions",command=self.toggle)
+        self.btn = Btn(self,text="voir les questions",command=lambda: self.toggle("question"))
         self.btn.grid(row=3,column=0,padx=3,pady=3)
 
-    def toggle(self):
-        self.est_afficher = not self.est_afficher;
+        self.btn_recherche = Btn(self,text="voir les recherches",command=lambda: self.toggle("recherche"))
+        self.btn_recherche.grid(row=3,column=1,padx=3,pady=3)
 
-        if self.est_afficher == True:
-            self.btn.configure(text="masquer les questions")
-            self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
-            self.afficher_question.actualiser()
-        else:
-            print("Action : Je cache la liste")
-            self.afficher_question.grid_forget()
-            # self.btn.configure(text="")
-            self.btn.configure(text="voir les questions")
+    def toggle(self,type_liste):
+        # self.est_afficher = not self.est_afficher
+        # self.est_afficher_recherche = not self.est_afficher
+
+        # if self.est_afficher == True:
+        #     self.btn.configure(text="masquer les questions")
+        #     self.afficher_question.grid(row=4,column=0,padx=3,pady=3)
+        #     self.afficher_question.actualiser()
+        # else:
+        #     print("Action : Je cache la liste")
+        #     self.afficher_question.grid_forget()
+            
+        #     self.btn.configure(text="voir les questions")
+        if type_liste =="question":
+            self.est_afficher = not self.est_afficher
+
+            if self.est_afficher:
+                self.btn.configure(text="masquer les questions")
+                self.afficher_question.grid(row=4, column=0, padx=3, pady=3)
+                self.afficher_question.actualiser()
+            else:
+                # print("Action : Je cache la liste")
+                self.afficher_question.grid_forget()
+                self.btn.configure(text="voir les questions")
+        elif type_liste=="recherche":
+            self.est_afficher_recherche = not self.est_afficher_recherche
+            if self.est_afficher_recherche:
+                self.btn_recherche.configure(text="masquer les recherches")
+                self.afficher_recherche.grid(row=4, column=1, padx=3, pady=3)
+                self.afficher_recherche.actualiser()
+            else:
+                self.afficher_recherche.grid_forget()
+                self.btn_recherche.configure(text="voir les recherches")
+
+
     
 
 
